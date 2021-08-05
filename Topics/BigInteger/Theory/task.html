@@ -1,0 +1,59 @@
+<h2>BigInteger</h2>
+<html>
+ <head></head>
+ <body>
+  <h2 style="text-align: center;">Using large numbers in Java</h2> 
+  <p>As you might remember, the standard primitive integer types cannot store very large numbers. It is not possible to assign the following large number to a variable of the type <code class="language-java">int</code> (or even <code class="language-java">long</code>):</p> 
+  <pre><code class="language-java">int y = 62957291795228763406253098; // compilation-error: integer number too large</code></pre> 
+  <p>That is also the reason why operations with numbers can sometimes lead to <strong>type overflow</strong>. For example, check out the following code:</p> 
+  <pre><code class="language-java">int a = Integer.MAX_VALUE; // 2147483647
+a += 2; // -2147483647</code></pre> 
+  <p>Fortunately, the Java Class Library provides a class called <code class="language-java">BigInteger</code> for processing very large numbers (both positive and negative). The size of a stored number is only limited by the available memory.</p> 
+  <p>The <code class="language-java">BigInteger</code> class is <strong>immutable</strong> which means methods of the class return new instances instead of changing existing ones.</p> 
+  <p>Although this type can store any integers, including small numbers, <code class="language-java">BigInteger</code> should only be used if it is absolutely necessary. Using it is less intuitive compared to built-in types and, more importantly, there is always a performance hit associated with its use. <code class="language-java">BigInteger</code> operations are substantially slower than operations on built-in integer types.</p> 
+  <h2 style="text-align: center;">Creating objects of BigInteger</h2> 
+  <p>The class <code class="language-java">BigInteger</code> belongs to the <code class="language-java">java.math</code> package. We import it by writing the following statement:</p> 
+  <pre><code class="language-java">import java.math.BigInteger;</code></pre> 
+  <p>Here is an instance of the class that stores the large number presented above:</p> 
+  <pre><code class="language-java">BigInteger number = new BigInteger("62957291795228763406253098");</code></pre> 
+  <p>It is also possible to create an instance by passing a long value to the method <code class="language-java">valueOf</code>:</p> 
+  <pre><code class="language-java">BigInteger number = BigInteger.valueOf(1_000_000_000);</code></pre> 
+  <p>In addition, the class has several useful constants:</p> 
+  <pre><code class="language-java">BigInteger zero = BigInteger.ZERO; // 0
+BigInteger one = BigInteger.ONE;   // 1
+BigInteger ten = BigInteger.TEN;   // 10</code></pre> 
+  <p>Using them is a good practice because constants allow you to reuse an already created object. This is particularly important considering that instance of <code class="language-java">BigInteger</code> is actually quite big. Except for a memory optimization point, the code with constants is easier to read.</p> 
+  <p>Compare the code below:</p> 
+  <pre><code class="language-java">if (something) {
+    return new BigInteger("1");
+}</code></pre> 
+  <p>and its analog with constants:</p> 
+  <pre><code class="language-java">if (something) {
+    return BigInteger.ONE;
+}</code></pre> 
+  <p>Remember it and try to use built-In <code class="language-java">BigInteger</code> constants whenever possible.</p> 
+  <h2 style="text-align: center;">Methods of BigInteger</h2> 
+  <p>The class has a set of non-static methods to perform all standard arithmetic operations. The following example demonstrates the addition.</p> 
+  <pre><code class="language-java">BigInteger eleven = ten.add(one);
+System.out.println(eleven); // 11
+
+System.out.println(ten); // 10, it has not changed!</code></pre> 
+  <p>Keep in mind, that the arithmetic methods do not change instances but create a new one.</p> 
+  <p>Other arithmetic methods (subtraction, multiplication, integer division) are listed below:</p> 
+  <pre><code class="language-java">BigInteger nine = ten.subtract(BigInteger.ONE); // 10 - 1 = 9
+BigInteger oneHundredTen = ten.multiply(eleven); // 10 * 11 = 110
+BigInteger twelve = oneHundredTen.divide(nine); // integer division: 12</code></pre> 
+  <p>The method <code class="language-java">negate</code> returns a new <code class="language-java">BigInteger</code> with the changed sign, like this:</p> 
+  <pre><code class="language-java">nine.negate(); // -9</code></pre> 
+  <p>The method <code class="language-java">divideAndRemainder</code> returns an array consisting of two numbers: the result of integer division and the remainder.</p> 
+  <pre><code class="language-java">BigInteger[] pair = oneHundredTen.divideAndRemainder(nine); // 12 and 2</code></pre> 
+  <p>The class also provides methods for performing more complex math operations. The method <code class="language-java">abs</code> returns a new <code class="language-java">BigInteger</code> whose value is the absolute value of this <code class="language-java">BigInteger</code>.</p> 
+  <pre><code class="language-java">BigInteger number = new BigInteger("-8");
+System.out.println(number.abs()); // 8</code></pre> 
+  <p>The method <code class="language-java">gcd</code> returns the greatest common divisor of two numbers.</p> 
+  <pre><code class="language-java">BigInteger three = BigInteger.valueOf(3);
+BigInteger six = BigInteger.valueOf(6);
+System.out.println(three.gcd(six)); // 3</code></pre> 
+  <p>The class has methods for performing bitwise and bitshift operations as well, but we do not consider them here.</p>
+ </body>
+</html>

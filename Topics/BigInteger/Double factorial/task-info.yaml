@@ -1,0 +1,16 @@
+type: code
+files:
+- name: src/Main.java
+  visible: true
+  text: |-
+    import java.math.BigInteger;
+
+    class DoubleFactorial {
+        public static BigInteger calcDoubleFactorial(int n) {
+            // type your java code here
+        }
+    }
+  learner_created: false
+feedback_link: https://hyperskill.org/learn/step/3474#comment
+status: Solved
+record: -1
